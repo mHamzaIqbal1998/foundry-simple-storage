@@ -1,66 +1,43 @@
-## Foundry
+## Foundry Simple Storage
 
-**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
+This project demonstrates a simple storage smart contract using [Foundry](https://book.getfoundry.sh/). It includes everything you need to deploy and interact with the contract on Ethereum testnets.
 
-Foundry consists of:
+### Prerequisites
 
--   **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
--   **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
--   **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
--   **Chisel**: Fast, utilitarian, and verbose solidity REPL.
+- [Foundry](https://book.getfoundry.sh/getting-started/installation) (includes `forge`, `anvil`, and `cast`)
+- An Ethereum RPC URL (e.g., Sepolia testnet)
+- A funded wallet/private key
 
-## Documentation
+### Setup
 
-https://book.getfoundry.sh/
+1. **Import your wallet using `cast`:**
 
-## Usage
+   ```sh
+   cast wallet import <wallet-name> --interactive
+   ```
 
-### Build
+   This will securely store your private key for use with Foundry scripts.
 
-```shell
-$ forge build
-```
+2. **Deploy the contract:**
 
-### Test
+   Replace the following placeholders:
+   - `<WALLET_NAME>`: The name you used when importing your wallet
+   - `<SENDER_ADDRESS>`: The address of your wallet
+   - `<SEPOLIA_RPC_URL>`: Your Sepolia (or other testnet) RPC endpoint
 
-```shell
-$ forge test
-```
+   Then run:
 
-### Format
+   ```sh
+   forge script script/DeploySimpleStorage.s.sol \
+     --rpc-url $SEPOLIA_RPC_URL \
+     --account <WALLET_NAME> \
+     --sender <SENDER_ADDRESS> \
+     --broadcast
+   ```
 
-```shell
-$ forge fmt
-```
+### Notes
 
-### Gas Snapshots
+- Make sure your wallet has testnet ETH for gas fees.
+- You can modify the deployment script or contract as needed for your use case.
 
-```shell
-$ forge snapshot
-```
-
-### Anvil
-
-```shell
-$ anvil
-```
-
-### Deploy
-
-```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
-```
-
-### Cast
-
-```shell
-$ cast <subcommand>
-```
-
-### Help
-
-```shell
-$ forge --help
-$ anvil --help
-$ cast --help
-```
+For more information, see the [Foundry Book](https://book.getfoundry.sh/).
